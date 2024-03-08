@@ -1,0 +1,48 @@
+                                                            -- Recuperando informações com queries SQL
+
+
+
+-- seleção de duas colunas da tabela vendedor.
+SELECT socialname AS Fornecedor, location AS localização 
+FROM seller; 
+
+
+-- seleção usando a cláusula de filtro e operador and.
+SELECT pname AS Nome, category AS Categoria, avaliação 
+FROM product 
+WHERE category = 'eletrônico' 
+AND avaliação >= 4; 
+
+
+
+
+-- Seleção do id cliente, nome e CPF , refinando a busca com a cláusula de filtro (where) e correspondência parcial (like). 
+SELECT idCliente, Fname AS Nome, CPF FROM clients 
+WHERE idCliente >= 4 
+AND Fname LIKE 'R%'; 
+
+
+
+-- seleção usando junção entre duas tabelas com a cláusula de filtro where e a cláusula de ordenação order by.
+SELECT socialName, CNPJ, contact, idpsproduct, quantity FROM supplier AS s
+INNER JOIN productSupplier AS p 
+ON s.idSupplier = p.idPsSupplier 
+WHERE quantity >= 400
+ORDER BY quantity;
+
+
+
+/* Seleção do nome completo do cliente usando a função concat( para concatenar), endereço e forma de pagamento usando inner join entre duas tabelas, uso do alias para dar
+apelido as colunas */  
+SELECT concat(fname, ' ', minit, ' ', lname) as Cliente, address as Endereço, typepayment as pagamento FROM clients as c 
+INNER JOIN payments as p 
+ON p.idpayment = c.idcliente;
+
+
+
+-- seleção usando cláusula de agrupamento, ordenação e filtro de grupos.
+SELECT  avaliação, count(*) 
+FROM product
+GROUP BY avaliação
+HAVING count(*) < 3
+ORDER BY avaliação;
